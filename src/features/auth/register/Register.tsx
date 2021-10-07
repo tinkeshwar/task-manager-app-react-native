@@ -30,7 +30,7 @@ export const Register = ({navigation}: INavigation) => {
     }
     const api: RegisterUserType = await register(data) as any
     if(api.id){
-      navigation.navigate('Login')
+      navigation.navigate('Login', {message: 'Verification mail has been sent to your email, please verify your account.'})
     }
     dispatch(setLoading(false))
   }

@@ -1,3 +1,4 @@
 export interface INavigation {
-    navigation: any
+    navigation: any,
+    route?: any
 }
