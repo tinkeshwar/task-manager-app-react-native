@@ -17,14 +17,16 @@ export const Register = ({navigation}: INavigation) => {
   const [password, setPassword] = useState<string|undefined>()
 
   const handleSubmit = async () => {
-    if(!email || !password){
-      Alert.alert('Empty', 'Please enter email and password.')
+    if(!email || !password || !name || !phone){
+      Alert.alert('Empty', 'All fields are required.')
       return false
     } 
     dispatch(setLoading(true))
     const data = {
         email,
-        password
+        password,
+        name, 
+        phone
     }
     const api: AuthResponseType = await login(data) as any
     if(api !==undefined && api?.user?.id){
