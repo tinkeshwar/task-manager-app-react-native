@@ -27,12 +27,10 @@ export const AuthSlice = createSlice({
             state.message = action.payload
         },
         setToken: (state, action:PayloadAction<string>) => {
-            localStorage.setItem('token', action.payload)
             state.token = action.payload
             state.isLoggedIn = true
         },
         setRToken: (state, action:PayloadAction<string>) => {
-            localStorage.setItem('refresh', action.payload)
             state.refresh = action.payload
         },
         /*end common*/
@@ -82,12 +80,6 @@ export const loadRefresh = () => async (dispatch: any) => {
     if(token){
         dispatch(refresh(token))
     }
-    dispatch(setLoading(false))
-}
-
-export const logInUser =  (data: any) => async (dispatch: any) => {
-    dispatch(setLoading(true))
-    
     dispatch(setLoading(false))
 }
 

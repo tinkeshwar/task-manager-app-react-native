@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
-import { Text, View, StyleSheet, TextInput, TouchableOpacity, ActivityIndicator } from 'react-native'
+import { Text, View, StyleSheet, TextInput, TouchableOpacity, ActivityIndicator, Alert } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux';
 import { AppStyles } from '../../../app/style';
-import { logInUser, selectLoading } from '../store';
+import { login } from '../api';
+import { logUser, selectLoading, setLoading } from '../store';
+import { AuthResponseType } from '../type';
 
 export const Login = () => {
 
@@ -12,7 +14,20 @@ export const Login = () => {
   const [password, setPassword] = useState<string|undefined>()
 
   const handleSubmit = async () => {
-    dispatch(logInUser({email, password}))
+    if(!email || !password){
+      Alert.alert('Empty', 'Please enter email and password.')
+      return false
+    } 
+    dispatch(setLoading(true))
+    const data = {
+        email,
+        password
+    }
+    const api: AuthResponseType = await login(data) as any
+    if(api !==undefined && api?.user?.id){
+        dispatch(logUser(api))
+    }
+    dispatch(setLoading(false))
   }
 
   return (
@@ -23,7 +38,7 @@ export const Login = () => {
                 style={styles.body}
                 placeholder='E-mail or phone number'
                 onChangeText={text => setEmail(text)}
-                value={email}
+                value={email||''}
                 placeholderTextColor={AppStyles.color.grey}
                 underlineColorAndroid='transparent'
             />
@@ -34,7 +49,7 @@ export const Login = () => {
                 secureTextEntry={true}
                 placeholder='Password'
                 onChangeText={text =>setPassword(text)}
-                value={password}
+                value={password ||''}
                 placeholderTextColor={AppStyles.color.grey}
                 underlineColorAndroid='transparent'
             />

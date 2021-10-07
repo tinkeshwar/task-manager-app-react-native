@@ -12,7 +12,7 @@ class RestApiService {
 
     private static async init(){
         this.instance = axios.create({
-            baseURL: 'http://localhost:8000/api/',
+            baseURL: 'http://192.168.29.117:8000/api/',
             headers: this.getHttpHeaders(),
             responseType: 'json'
         })
@@ -40,6 +40,7 @@ class RestApiService {
             return await success.data
         } catch (error) {
             const { response } = await error as any
+            Alert.alert(response.data.error||'', response.data.message);
             return response.data
         }
     }
