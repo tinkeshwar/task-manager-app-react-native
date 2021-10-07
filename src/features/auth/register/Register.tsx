@@ -7,11 +7,13 @@ import { logUser, selectLoading, setLoading } from '../store';
 import { AppStyles, styles } from '../styled';
 import { AuthResponseType } from '../type';
 
-export const Login = ({navigation}: INavigation) => {
+export const Register = ({navigation}: INavigation) => {
 
   const dispatch = useDispatch()
   const loading: boolean = useSelector(selectLoading)
+  const [name, setName] = useState<string|undefined>()
   const [email, setEmail] = useState<string|undefined>()
+  const [phone, setPhone] = useState<string|undefined>()
   const [password, setPassword] = useState<string|undefined>()
 
   const handleSubmit = async () => {
@@ -31,19 +33,39 @@ export const Login = ({navigation}: INavigation) => {
     dispatch(setLoading(false))
   }
 
-  const registerHandle = () => {
-    navigation.navigate('Register')
+  const loginHandle = () => {
+    navigation.navigate('Login')
   }
 
   return (
       <View style={styles.container}>
-          <Text style={styles.title}>Sign In</Text>
+          <Text style={styles.title}>Sign Up</Text>
+          <View style={styles.InputContainer}>
+            <TextInput
+                style={styles.body}
+                placeholder='Name'
+                onChangeText={text => setName(text)}
+                value={name||''}
+                placeholderTextColor={AppStyles.color.grey}
+                underlineColorAndroid='transparent'
+            />
+          </View>
           <View style={styles.InputContainer}>
             <TextInput
                 style={styles.body}
                 placeholder='E-mail'
                 onChangeText={text => setEmail(text)}
                 value={email||''}
+                placeholderTextColor={AppStyles.color.grey}
+                underlineColorAndroid='transparent'
+            />
+          </View>
+          <View style={styles.InputContainer}>
+            <TextInput
+                style={styles.body}
+                placeholder='Phone'
+                onChangeText={text => setPhone(text)}
+                value={phone||''}
                 placeholderTextColor={AppStyles.color.grey}
                 underlineColorAndroid='transparent'
             />
@@ -61,18 +83,15 @@ export const Login = ({navigation}: INavigation) => {
           </View>
           {loading && <ActivityIndicator
             style={{ marginTop: 30 }}
-            size="large"
+            size={'large'}
             animating={loading}
             color={AppStyles.color.tint}
           />}
-          {!loading && <TouchableOpacity style={styles.forgetLinkContainer} onPress={()=>Alert.alert('Waiting', 'Not Implemented')}>
-            <Text>Forget password?</Text>
-          </TouchableOpacity>}
           {!loading &&<TouchableOpacity style={styles.loginButtonContainer} onPress={handleSubmit}>
-            <Text style={styles.loginButton}>Sign In</Text>
-          </TouchableOpacity>}
-          {!loading &&<TouchableOpacity style={styles.registerButtonContainer} onPress={registerHandle}>
             <Text style={styles.loginButton}>Sign Up</Text>
+          </TouchableOpacity>}
+          {!loading &&<TouchableOpacity style={styles.registerButtonContainer} onPress={loginHandle}>
+            <Text style={styles.loginButton}>Sign In</Text>
           </TouchableOpacity>}
     </View>
   )
