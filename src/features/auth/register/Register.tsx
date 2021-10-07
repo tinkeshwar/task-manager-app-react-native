@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { Text, View, TextInput, TouchableOpacity, ActivityIndicator, Alert } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux';
 import { INavigation } from '../../../app/interface';
-import { login, register } from '../api';
+import { register } from '../api';
 import { logUser, selectLoading, setLoading } from '../store';
 import { AppStyles, styles } from '../styled';
-import { AuthResponseType } from '../type';
+import { RegisterUserType } from '../type';
 
 export const Register = ({navigation}: INavigation) => {
 
@@ -28,9 +28,9 @@ export const Register = ({navigation}: INavigation) => {
         name, 
         phone
     }
-    const api: AuthResponseType = await register(data) as any
-    if(api !==undefined && api?.user?.id){
-        dispatch(logUser(api))
+    const api: RegisterUserType = await register(data) as any
+    if(api.id){
+      navigation.navigate('Login')
     }
     dispatch(setLoading(false))
   }

@@ -1,13 +1,15 @@
 import {
     AuthResponseType,
     AuthUserResponseType,
-    ImageType
+    ImageType,
+    RegisterUserType
 } from './response'
 
 export type {
     AuthUserResponseType,
     AuthResponseType,
-    ImageType
+    ImageType,
+    RegisterUserType
 }
 
 export type ImagePostType = {

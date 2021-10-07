@@ -26,6 +26,13 @@ export type AuthResponseType = {
     scopes: string[]|[]
 }
 
+export type RegisterUserType = {
+    id: number,
+    firstname: string,
+    email: string,
+    phone: number
+}
+
 export type ImageType = {
     id: number,
     name: string,
