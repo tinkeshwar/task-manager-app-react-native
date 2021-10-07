@@ -1,5 +1,3 @@
-import { StyleSheet } from "react-native";
-
 export const AppStyles = {
   color: {
     main: "#5ea23a",
@@ -26,7 +24,7 @@ export const AppStyles = {
     normal: 16
   },
   buttonWidth: {
-    main: "70%"
+    main: "50%"
   },
   textInputWidth: {
     main: "80%"
@@ -50,44 +48,3 @@ export const AppIcon = {
     height: 25
   }
 };
-
-export const HeaderButtonStyle = StyleSheet.create({
-  multi: {
-    flexDirection: "row"
-  },
-  container: {
-    padding: 10
-  },
-  image: {
-    justifyContent: "center",
-    width: 35,
-    height: 35,
-    margin: 6
-  },
-  rightButton: {
-    color: AppStyles.color.tint,
-    marginRight: 10,
-    fontWeight: "normal",
-  }
-});
-
-export const ListStyle = StyleSheet.create({
-  title: {
-    fontSize: 16,
-    color: AppStyles.color.subtitle,
-    fontWeight: "bold"
-  },
-  subtitleView: {
-    minHeight: 55,
-    flexDirection: "row",
-    paddingTop: 5,
-    marginLeft: 10
-  },
-  leftSubtitle: {
-    flex: 2
-  },
-  avatarStyle: {
-    height: 80,
-    width: 80
-  }
-});
