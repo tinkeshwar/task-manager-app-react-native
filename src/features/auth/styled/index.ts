@@ -20,9 +20,7 @@ export const styles = StyleSheet.create({
       color: AppStyles.color.text
     },
     forgetLinkContainer: {
-      marginTop: 10,
-      left: '-25%',
-      alignContent: 'flex-start'
+      marginTop: 10
     },
     loginButtonContainer: {
       width: '50%',
