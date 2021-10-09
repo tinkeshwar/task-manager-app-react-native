@@ -93,8 +93,8 @@ export const Register = ({navigation}: INavigation) => {
           {!loading &&<TouchableOpacity style={styles.loginButtonContainer} onPress={handleSubmit}>
             <Text style={styles.loginButton}>Sign Up</Text>
           </TouchableOpacity>}
-          {!loading &&<TouchableOpacity style={styles.registerButtonContainer} onPress={loginHandle}>
-            <Text style={styles.loginButton}>Sign In</Text>
+          {!loading && <TouchableOpacity style={styles.forgetLinkContainer} onPress={loginHandle}>
+            <Text>Already have account? Sign In</Text>
           </TouchableOpacity>}
     </View>
   )

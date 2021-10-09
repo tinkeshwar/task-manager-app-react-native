@@ -1,3 +1,4 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useState } from 'react';
 import { Text, View, TextInput, TouchableOpacity, ActivityIndicator, Alert } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux';
@@ -28,6 +29,8 @@ export const Login = ({navigation}: INavigation) => {
     const api: AuthResponseType = await login(data) as any
     if(api !==undefined && api?.user?.id){
         dispatch(logUser(api))
+        await AsyncStorage.setItem('token', api.token)
+        await AsyncStorage.setItem('refresh', api.refresh)
         navigation.navigate('Dashboard')
     }
     dispatch(setLoading(false))
@@ -73,8 +76,8 @@ export const Login = ({navigation}: INavigation) => {
           {!loading &&<TouchableOpacity style={styles.loginButtonContainer} onPress={handleSubmit}>
             <Text style={styles.loginButton}>Sign In</Text>
           </TouchableOpacity>}
-          {!loading &&<TouchableOpacity style={styles.registerButtonContainer} onPress={registerHandle}>
-            <Text style={styles.loginButton}>Sign Up</Text>
+          {!loading && <TouchableOpacity style={styles.forgetLinkContainer} onPress={registerHandle}>
+            <Text>Don't have account? Sign Up Now</Text>
           </TouchableOpacity>}
     </View>
   )

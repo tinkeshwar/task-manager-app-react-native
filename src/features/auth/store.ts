@@ -1,6 +1,7 @@
+import AsyncStorage from '@react-native-async-storage/async-storage'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { getProfile } from './api'
 import { AuthResponseType, AuthUserResponseType } from './type'
-import * as SecureStore from 'expo-secure-store';
 
 export const AuthSlice = createSlice({
     name: 'auth',
@@ -28,12 +29,10 @@ export const AuthSlice = createSlice({
             state.message = action.payload
         },
         setToken: (state, action:PayloadAction<string>) => {
-            SecureStore.setItemAsync('token', action.payload)
             state.token = action.payload
             state.isLoggedIn = true
         },
         setRToken: (state, action:PayloadAction<string>) => {
-            SecureStore.setItemAsync('refresh', action.payload)
             state.refresh = action.payload
         },
         /*end common*/
@@ -47,12 +46,7 @@ export const AuthSlice = createSlice({
         },
         setLoggedIn: (state, action:PayloadAction<boolean>) => {
             state.isLoggedIn = action.payload
-        },
-        refresh:(state, action:PayloadAction<string>) => {
-            const token = action.payload
-            state.token = token || ''
-            state.isLoggedIn = token? true:false
-        },
+        }
         /*end user*/
     }
 })
@@ -64,8 +58,7 @@ export const {
     setRToken,
     setProfile,
     setUser,
-    setLoggedIn,
-    refresh,
+    setLoggedIn
 } = AuthSlice.actions
 
 /*start user*/
@@ -75,16 +68,15 @@ export const logUser = (auth: AuthResponseType) => (dispatch: any) => {
     dispatch(setRToken(auth.refresh))
     dispatch(setLoading(false))
 }
-/*end user*/
 
-export const loadRefresh = () => async (dispatch: any) => {
+export const loadUserProfile = () => async (dispatch: any) => {
     dispatch(setLoading(true))
-    const token = await SecureStore.getItemAsync('token')
-    if(token){
-        dispatch(refresh(token))
-    }
+    const profile: AuthResponseType = await getProfile()
+    dispatch(setProfile(profile))
+    dispatch(setUser(profile.user))
     dispatch(setLoading(false))
 }
+/*end user*/
 
 export const selectLoading = (state:any) => state.auth.loading
 export const selectAlert = (state:any) => state.auth.message

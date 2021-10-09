@@ -25,14 +25,12 @@ export const styles = StyleSheet.create({
     loginButtonContainer: {
       width: '50%',
       backgroundColor: AppStyles.color.tint,
-      borderRadius: AppStyles.borderRadius.main,
       padding: 10,
       marginTop: 30
     },
     registerButtonContainer: {
       width: '50%',
       backgroundColor: AppStyles.color.blue,
-      borderRadius: AppStyles.borderRadius.main,
       padding: 10,
       marginTop: 10
     },

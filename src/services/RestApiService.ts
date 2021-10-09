@@ -1,5 +1,5 @@
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import axios from 'axios'
-import * as SecureStore from 'expo-secure-store'
 import { ApiUrl } from '../app/const';
 import { notifyError } from '../helpers';
 
@@ -166,17 +166,17 @@ class RestApiService {
     }
 
     private static async getToken () {
-        const token = await SecureStore.getItemAsync('token')
+        const token = await AsyncStorage.getItem('token')
         return 'token'
     }
 
     private static async setToken (token:string) {
-        await SecureStore.setItemAsync('token', token)
+        await AsyncStorage.setItem('token', token)
         return token
     }
 
     private static async getRToken () {
-        const token = await SecureStore.getItemAsync('refresh')
+        const token = await AsyncStorage.getItem('refresh')
         if(token){
             const tokenParts = JSON.parse(atob(token.split('.')[1]))
             const now = Math.ceil(Date.now() / 1000)
@@ -188,13 +188,12 @@ class RestApiService {
     }
 
     private static async setRToken (token:string) {
-        await SecureStore.setItemAsync('refresh', token)
+        await AsyncStorage.setItem('refresh', token)
         return token
     }
 
     private static async clearStorage () {
-        await SecureStore.deleteItemAsync('token')
-        await SecureStore.deleteItemAsync('refresh')
+        await AsyncStorage.clear()
         return true
     }
 

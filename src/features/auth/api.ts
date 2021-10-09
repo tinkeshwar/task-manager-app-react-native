@@ -9,3 +9,8 @@ export const register = async (data: any) => {
     const url = 'auth/user/register'
     return await RestApiService.post(url, data)
 }
+
+export const getProfile = async () => {
+    const path = 'auth/profile/profile'
+    return await RestApiService.get(path)
+}
