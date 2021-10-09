@@ -76,6 +76,10 @@ export const loadUserProfile = () => async (dispatch: any) => {
     dispatch(setUser(profile.user))
     dispatch(setLoading(false))
 }
+
+export const logOut = () => async (dispatch: any) => {
+    await AsyncStorage.clear()
+}
 /*end user*/
 
 export const selectLoading = (state:any) => state.auth.loading

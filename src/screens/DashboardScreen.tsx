@@ -1,9 +1,9 @@
 import React from 'react';
-import { Text } from 'react-native';
 import { INavigation } from '../app/interface';
+import { TabMenu } from '../features/layout';
 
-export const DashboardScreen = ({navigation}: INavigation) => {
+export const DashboardScreen = ({navigation}:INavigation) => {
     return (
-        <Text>i am here</Text>
+        <TabMenu navigation={navigation}/>
     )
 }

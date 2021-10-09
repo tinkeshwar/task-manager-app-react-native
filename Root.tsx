@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
-import { Provider, useDispatch, useSelector } from 'react-redux';
-import { store } from './src/app/store';
+import { useDispatch, useSelector } from 'react-redux';
 import { HomeScreen } from './src/screens/HomeScreen';
-import Toast from 'react-native-toast-message';
 import AppLoading from 'expo-app-loading';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { UserProvider } from './src/app/context';
@@ -32,7 +30,6 @@ export default function Root() {
   return (
     <UserProvider value={user}>
         <HomeScreen/>
-        <Toast config={{}} ref={(ref) => Toast.setRef(ref)} />
     </UserProvider>
   );
 }
