@@ -13,11 +13,18 @@ class RestApiService {
     }
 
     private static async init(){
-        this.instance = axios.create({
+        
+        this.instance =  axios.create({
             baseURL: ApiUrl,
-            headers: this.getHttpHeaders(),
             responseType: 'json'
         })
+        this.instance.interceptors.request.use(
+            async (request: any)=>{
+                request.headers = await this.getHttpHeaders()
+                return request
+            },
+            (error: any) =>error
+        )
         this.instance.interceptors.response.use(
             (response: any)=>this.responseHandle(response),
             (error: any) =>this.errorHandle(error)
@@ -151,15 +158,15 @@ class RestApiService {
         return Promise.reject(error)
     }
 
-    private static getHttpHeaders (){
-        const token = this.getToken()
+    private static async getHttpHeaders (){
+        const token = await this.getToken()
         const headers: any = {'Content-Type': 'application/json','Accept': 'application/json'}
         if (token) headers['Authorization'] = `${token}`
         return headers
     }
 
-    private static getHttpFormHeaders (){
-        const token = this.getToken()
+    private static async getHttpFormHeaders (){
+        const token = await this.getToken()
         const headers: any = {'Accept': 'application/json'}
         if (token) headers['Authorization'] = `${token}`
         return headers
@@ -167,7 +174,7 @@ class RestApiService {
 
     private static async getToken () {
         const token = await AsyncStorage.getItem('token')
-        return 'token'
+        return token
     }
 
     private static async setToken (token:string) {
