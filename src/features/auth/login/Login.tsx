@@ -29,7 +29,6 @@ export const Login = ({navigation}: INavigation) => {
     const api: AuthResponseType = await login(data) as any
     if(api !==undefined && api?.user?.id){
         dispatch(logUser(api))
-        console.log(api)
         await AsyncStorage.setItem('token', api.token)
         await AsyncStorage.setItem('refresh', api.refresh)
         navigation.navigate('Dashboard')

@@ -2,17 +2,16 @@ import AsyncStorage from '@react-native-async-storage/async-storage'
 import React from 'react'
 import { SafeAreaView, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { useSelector } from 'react-redux'
-import { INavigation } from '../../../app/interface'
 import { selectAuthUser } from '../../auth/store'
 
-export const Settings = ({navigation}:INavigation) => {
+
+export const Settings = () => {
 
     const user = useSelector(selectAuthUser)
     const handleLogout =async () => {
         await AsyncStorage.clear()
     }
 
-    console.log(user)
     return (
         <SafeAreaView style={styles.container}>
             <TouchableOpacity style={styles.logoutButtonArea} onPress={handleLogout}>
