@@ -1,14 +1,14 @@
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { UserDashboard } from '../../dashboard';
-import { BucketList, TaskList } from '../../task';
+import { Bucket, Task } from '../../task';
 import { Settings } from '../../user';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { AppStyles } from '../../auth/styled';
 import { INavigation } from '../../../app/interface';
 
 export const TabMenu = ({navigation}:INavigation) => {
-    const Tab = createBottomTabNavigator();
+    const Tab = createBottomTabNavigator()
     return (
         <Tab.Navigator>
             <Tab.Screen 
@@ -30,7 +30,7 @@ export const TabMenu = ({navigation}:INavigation) => {
             />
             <Tab.Screen 
                 name="Task Buckets" 
-                component={BucketList} 
+                component={Bucket} 
                 options={{
                     title: 'Buckets',
                     headerStyle: {
@@ -46,7 +46,7 @@ export const TabMenu = ({navigation}:INavigation) => {
             />
             <Tab.Screen 
                 name="Tasks" 
-                component={TaskList} 
+                component={Task} 
                 options={{
                     title: 'Tasks', 
                     headerStyle: {

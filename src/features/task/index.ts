@@ -1,7 +1,19 @@
-import { BucketList } from "./bucket";
-import { TaskList } from "./task";
+import { BucketList } from "./bucket/bucketList";
+import { AddEditBucket } from "./bucket/addEditBucket";
+
+import { Task } from "./task";
+import { Bucket } from "./bucket";
+
+import { TaskList } from "./task/task";
+import { AddEditTask } from "./task/addEditTask";
 
 export {
+    Bucket,
     BucketList,
-    TaskList
+    AddEditBucket,
+
+    Task,
+    TaskList,
+    AddEditTask
 }
+

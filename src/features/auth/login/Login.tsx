@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useState } from 'react';
-import { Text, View, TextInput, TouchableOpacity, ActivityIndicator, Alert } from 'react-native'
+import { Text, View, TextInput, TouchableOpacity, ActivityIndicator } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux';
 import { INavigation } from '../../../app/interface';
 import { notifyError } from '../../../helpers';
