@@ -1,6 +1,7 @@
 import axios from 'axios'
-import { Alert } from 'react-native'
 import * as SecureStore from 'expo-secure-store'
+import { ApiUrl } from '../app/const';
+import { notifyError } from '../helpers';
 
 class RestApiService {
 
@@ -13,7 +14,7 @@ class RestApiService {
 
     private static async init(){
         this.instance = axios.create({
-            baseURL: 'http://192.168.29.117:8000/api/',
+            baseURL: ApiUrl,
             headers: this.getHttpHeaders(),
             responseType: 'json'
         })
@@ -30,7 +31,7 @@ class RestApiService {
             return await success.data
         } catch (error) {
             const { response } = await error as any
-            Alert.alert(response.data.error||'', response.data.message);
+            notifyError(response.data.error||'', response.data.message);
             return response.data
         }
     }
@@ -41,7 +42,7 @@ class RestApiService {
             return await success.data
         } catch (error) {
             const { response } = await error as any
-            Alert.alert(response.data.error||'', response.data.message);
+            notifyError(response.data.error||'', response.data.message);
             return response.data
         }
     }
@@ -52,7 +53,7 @@ class RestApiService {
             return await success.data
         } catch (error) {
             const { response } = await error as any
-            Alert.alert(response.data.error||'', response.data.message);
+            notifyError(response.data.error||'', response.data.message);
             return response.data
         }
     }
@@ -64,7 +65,7 @@ class RestApiService {
             return await success.data
         } catch (error) {
             const { response } = await error as any
-            Alert.alert(response.data.error||'', response.data.message);
+            notifyError(response.data.error||'', response.data.message);
             return response.data
         }
     }
@@ -76,7 +77,7 @@ class RestApiService {
             return await success.data
         } catch (error) {
             const { response } = error as any
-            Alert.alert(response.data.error||'', response.data.message);
+            notifyError(response.data.error||'', response.data.message);
             return response.data
         }
     }
@@ -89,7 +90,7 @@ class RestApiService {
             return success.data
         } catch (error) {
             const { response } = error as any
-            Alert.alert(response.data.error||'', response.data.message);
+            notifyError(response.data.error||'', response.data.message);
             return response.data
         }
     }
@@ -103,7 +104,7 @@ class RestApiService {
             return success.data
         } catch (error) {
             const { response } = error as any
-            Alert.alert(response.data.error||'', response.data.message);
+            notifyError(response.data.error||'', response.data.message);
             return response.data
         }
     }
@@ -136,13 +137,13 @@ class RestApiService {
                     originalRequest.headers['Authorization'] = `${response.data.token}`
                     return this.instance(originalRequest)
                 }).catch((error: any) => {
-                    Alert.alert(error||'', error.message);
+                    notifyError(error||'', error.message);
                     return Promise.reject(error)
                 })
             }
             if(error.response.status === 401 && (error.response.data.message === 'Missing authentication' || error.response.data.message === 'Invalid credentials')){
                 this.clearStorage()
-                Alert.alert(error.response.data.error||'', error.response.data.message);
+                notifyError(error.response.data.error||'', error.response.data.message);
                 window.location.href='/'
                 return Promise.reject(error)
             }

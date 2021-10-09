@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Text, View, TextInput, TouchableOpacity, ActivityIndicator, Alert } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux';
 import { INavigation } from '../../../app/interface';
+import { notifyError } from '../../../helpers';
 import { login } from '../api';
 import { logUser, selectLoading, setLoading } from '../store';
 import { AppStyles, styles } from '../styled';
@@ -16,7 +17,7 @@ export const Login = ({navigation}: INavigation) => {
 
   const handleSubmit = async () => {
     if(!email || !password){
-      Alert.alert('Empty', 'Please enter email and password.')
+      notifyError('Empty', 'Please enter email and password.')
       return false
     } 
     dispatch(setLoading(true))
@@ -66,7 +67,7 @@ export const Login = ({navigation}: INavigation) => {
             animating={loading}
             color={AppStyles.color.tint}
           />}
-          {!loading && <TouchableOpacity style={styles.forgetLinkContainer} onPress={()=>Alert.alert('Waiting', 'Not Implemented')}>
+          {!loading && <TouchableOpacity style={styles.forgetLinkContainer} onPress={()=>notifyError('Waiting', 'Not Implemented')}>
             <Text>Forget password?</Text>
           </TouchableOpacity>}
           {!loading &&<TouchableOpacity style={styles.loginButtonContainer} onPress={handleSubmit}>

@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Text, View, TextInput, TouchableOpacity, ActivityIndicator, Alert } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux';
 import { INavigation } from '../../../app/interface';
+import { notifyError } from '../../../helpers';
 import { register } from '../api';
 import { selectLoading, setLoading } from '../store';
 import { AppStyles, styles } from '../styled';
@@ -18,7 +19,7 @@ export const Register = ({navigation}: INavigation) => {
 
   const handleSubmit = async () => {
     if(!email || !password || !name || !phone){
-      Alert.alert('Empty', 'All fields are required.')
+      notifyError('Empty', 'All fields are required.')
       return false
     } 
     dispatch(setLoading(true))
