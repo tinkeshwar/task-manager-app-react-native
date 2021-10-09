@@ -27,6 +27,7 @@ export const Login = ({navigation}: INavigation) => {
     const api: AuthResponseType = await login(data) as any
     if(api !==undefined && api?.user?.id){
         dispatch(logUser(api))
+        navigation.navigate('Dashboard')
     }
     dispatch(setLoading(false))
   }
@@ -61,7 +62,7 @@ export const Login = ({navigation}: INavigation) => {
           </View>
           {loading && <ActivityIndicator
             style={{ marginTop: 30 }}
-            size="large"
+            size={'large'}
             animating={loading}
             color={AppStyles.color.tint}
           />}

@@ -1,5 +1,6 @@
 import axios from 'axios'
-import { Alert } from 'react-native';
+import { Alert } from 'react-native'
+import * as SecureStore from 'expo-secure-store'
 
 class RestApiService {
 
@@ -163,19 +164,18 @@ class RestApiService {
         return headers
     }
 
-    private static getToken () {
-        // const token = localStorage.getItem('token')
+    private static async getToken () {
+        const token = await SecureStore.getItemAsync('token')
         return 'token'
     }
 
-    private static setToken (token:string) {
-        //localStorage.setItem('token', token)
+    private static async setToken (token:string) {
+        await SecureStore.setItemAsync('token', token)
         return token
     }
 
-    private static getRToken () {
-        // const token = localStorage.getItem('refresh')||null
-        const token = 'yuy'
+    private static async getRToken () {
+        const token = await SecureStore.getItemAsync('refresh')
         if(token){
             const tokenParts = JSON.parse(atob(token.split('.')[1]))
             const now = Math.ceil(Date.now() / 1000)
@@ -186,13 +186,14 @@ class RestApiService {
         return token
     }
 
-    private static setRToken (token:string) {
-        //localStorage.setItem('refresh', token)
+    private static async setRToken (token:string) {
+        await SecureStore.setItemAsync('refresh', token)
         return token
     }
 
-    private static clearStorage () {
-        //localStorage.clear()
+    private static async clearStorage () {
+        await SecureStore.deleteItemAsync('token')
+        await SecureStore.deleteItemAsync('refresh')
         return true
     }
 

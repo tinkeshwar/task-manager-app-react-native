@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { AuthResponseType, AuthUserResponseType } from './type'
+import * as SecureStore from 'expo-secure-store';
 
 export const AuthSlice = createSlice({
     name: 'auth',
@@ -27,10 +28,12 @@ export const AuthSlice = createSlice({
             state.message = action.payload
         },
         setToken: (state, action:PayloadAction<string>) => {
+            SecureStore.setItemAsync('token', action.payload)
             state.token = action.payload
             state.isLoggedIn = true
         },
         setRToken: (state, action:PayloadAction<string>) => {
+            SecureStore.setItemAsync('refresh', action.payload)
             state.refresh = action.payload
         },
         /*end common*/
@@ -76,7 +79,7 @@ export const logUser = (auth: AuthResponseType) => (dispatch: any) => {
 
 export const loadRefresh = () => async (dispatch: any) => {
     dispatch(setLoading(true))
-    const token = localStorage.getItem('token')
+    const token = await SecureStore.getItemAsync('token')
     if(token){
         dispatch(refresh(token))
     }

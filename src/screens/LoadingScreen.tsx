@@ -1,15 +1,13 @@
 import React, { useEffect } from 'react'
-import { SafeAreaView, Text, StyleSheet, ActivityIndicator } from 'react-native'
+import { SafeAreaView, StyleSheet, ActivityIndicator } from 'react-native'
 import { INavigation } from '../app/interface'
 import { AppStyles } from '../app/style'
 
 export const LoadingScreen = ({ navigation }: INavigation) => {
 
     useEffect(()=>{
-        setTimeout(()=>{
-            navigation.navigate('Login')
-        },2000)
-    },[])
+        navigation.navigate('Login')
+    })
 
     return (
         <SafeAreaView style={styles.container}>

@@ -3,7 +3,7 @@ import { Text, View, TextInput, TouchableOpacity, ActivityIndicator, Alert } fro
 import { useDispatch, useSelector } from 'react-redux';
 import { INavigation } from '../../../app/interface';
 import { register } from '../api';
-import { logUser, selectLoading, setLoading } from '../store';
+import { selectLoading, setLoading } from '../store';
 import { AppStyles, styles } from '../styled';
 import { RegisterUserType } from '../type';
 
@@ -30,7 +30,7 @@ export const Register = ({navigation}: INavigation) => {
     }
     const api: RegisterUserType = await register(data) as any
     if(api.id){
-      navigation.navigate('Login', {message: 'Verification mail has been sent to your email, please verify your account.'})
+      navigation.navigate('Login')
     }
     dispatch(setLoading(false))
   }
