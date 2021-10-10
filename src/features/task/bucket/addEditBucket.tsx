@@ -3,6 +3,7 @@ import { ActivityIndicator, SafeAreaView, Text, TextInput, TouchableOpacity, Vie
 import { useDispatch, useSelector } from 'react-redux'
 import { INavigation } from '../../../app/interface'
 import { AppStyles } from '../../../app/style'
+import { KeyBoardAvoidingWrap } from '../../../assets'
 import { notifyError, notifySuccess } from '../../../helpers'
 import { createBucket } from '../api'
 import { loadBuckets, selectLoading, selectPage, setLoading } from '../store'
@@ -20,6 +21,7 @@ export const AddEditBucket = ({navigation}:INavigation) => {
     const handleSubmit = async () => {
         if(!name){
             notifyError('Empty', 'All field are required.')
+            return
         }
         dispatch(setLoading(true))
         const post ={
@@ -36,6 +38,7 @@ export const AddEditBucket = ({navigation}:INavigation) => {
     }
 
     return (
+      <KeyBoardAvoidingWrap>
         <SafeAreaView style={styles.container}>
           <Text style={styles.inputTitle}>Add Bucket</Text>
           <View style={styles.InputContainer}>
@@ -69,5 +72,6 @@ export const AddEditBucket = ({navigation}:INavigation) => {
             <Text style={styles.submitButton}>Add Bucket</Text>
           </TouchableOpacity>}
         </SafeAreaView>
+      </KeyBoardAvoidingWrap>
     )
 }

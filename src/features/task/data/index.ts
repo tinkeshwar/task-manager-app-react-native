@@ -1,5 +1,5 @@
-export const priority = [
-    {id: 1, title:'Low', color: 'green'},
-    {id: 2, title:'Medium', color: 'yellow'},
-    {id: 3, title:'High', color: 'red'}
+export const prioritiesData = [
+    {value: 1, label:'Low Priority', color: 'green'},
+    {value: 2, label:'Medium Priority', color: 'yellow'},
+    {value: 3, label:'High Priority', color: 'red'}
 ]

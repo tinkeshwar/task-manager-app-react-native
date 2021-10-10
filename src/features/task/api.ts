@@ -5,6 +5,11 @@ export const getbucketList = (page: number, records: number) => {
     return RestApiService.get(url)
 }
 
+export const getbucketListDropdown = (sort?: string, order?: string) => {
+    const url = `task/buckets/dropdown?sort=${sort}&order=${order}`
+    return RestApiService.get(url)
+}
+
 export const createBucket = (data: any) => {
     const url = `task/buckets`
     return RestApiService.post(url, data)

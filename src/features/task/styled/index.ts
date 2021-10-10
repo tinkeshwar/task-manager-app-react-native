@@ -77,6 +77,7 @@ export const styles = StyleSheet.create({
     },
     InputContainer: {
         width: AppStyles.textInputWidth.main,
+        backgroundColor: AppStyles.color.white,
         marginTop: 30,
         borderWidth: 1,
         borderStyle: 'solid',
