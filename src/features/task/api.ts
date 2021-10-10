@@ -29,3 +29,8 @@ export const createTask = (data: any) => {
     const url = `task/tasks`
     return RestApiService.post(url, data)
 }
+
+export const patchTask = (id: number) => {
+    const url = `task/tasks/${id}`
+    return RestApiService.patch(url)
+}

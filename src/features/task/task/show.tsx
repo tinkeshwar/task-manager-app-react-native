@@ -1,19 +1,54 @@
 import dateFormat from 'dateformat'
 import React from 'react'
-import { SafeAreaView, Text, View } from 'react-native'
+import { SafeAreaView, Text, TouchableOpacity, View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { patchTask } from '../api'
 import { getPriorityByValue, getPriorityItemByValue, parseHistory } from '../helper'
-import { selectTask } from '../store'
+import { loadTask, selectTask, setLoading } from '../store'
 import { styles } from '../styled'
 import { TaskResponseType } from '../type'
 
 export const ShowTask = () => {
+
+    const dispatch = useDispatch()
     const task: TaskResponseType = useSelector(selectTask)
+
+    const markHandle = async (id: number) => {
+        dispatch(setLoading(true))
+        await patchTask(id)
+        dispatch(loadTask(id))
+        dispatch(setLoading(false))
+    }
 
     return (
         <SafeAreaView style={styles.showTitleContainer}>
+            <View style={{flexDirection:'row', alignItems: 'flex-end'}}>
+                <TouchableOpacity style={{
+                        marginTop: 10,
+                        marginBottom: 20,
+                        backgroundColor: 'blue',
+                        padding: 10,
+                        paddingHorizontal: 30,
+                        borderRadius: 5
+                    }}>
+                    <Text style={styles.addButton}>Edit</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={{
+                        marginTop: 10,
+                        marginBottom: 20,
+                        backgroundColor: 'gray',
+                        padding: 10,
+                        paddingHorizontal: 30,
+                        borderRadius: 5,
+                        marginLeft: 5
+                    }}
+                    onPress={()=>markHandle(task.id)}
+                >
+                    <Text style={styles.addButton}>Mark As {task.is_complete?'Incomplete':'Complete'}</Text>
+                </TouchableOpacity>
+            </View>
             <ScrollView>
                 <View style={styles.showTitleView}>
                     <Text style={styles.showTitle}>{task.name}</Text>

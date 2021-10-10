@@ -29,6 +29,7 @@ export type TaskResponseType = {
     sort: number,
     status: string,
     history: string[],
+    is_complete: boolean,
     deadline_at: Date,
     created_at: Date,
     updated_at: Date,
