@@ -39,7 +39,7 @@ export const TaskList =({navigation}:INavigation) => {
     const page: number = useSelector(selectPage)
 
     const handleAddEditButton = () => {
-        navigation.navigate('AddEditTask')
+        navigation.navigate('AddTask')
     }
 
     useEffect(()=>{

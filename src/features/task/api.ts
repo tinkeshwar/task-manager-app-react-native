@@ -30,6 +30,11 @@ export const createTask = (data: any) => {
     return RestApiService.post(url, data)
 }
 
+export const updateTask = (id:number, data: any) => {
+    const url = `task/tasks/${id}`
+    return RestApiService.put(url, data)
+}
+
 export const patchTask = (id: number) => {
     const url = `task/tasks/${id}`
     return RestApiService.patch(url)

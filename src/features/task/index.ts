@@ -5,8 +5,9 @@ import { Task } from "./task";
 import { Bucket } from "./bucket";
 
 import { TaskList } from "./task/task";
-import { AddEditTask } from "./task/addEditTask";
+import { AddTask } from "./task/addTask";
 import { ShowTask } from "./task/show";
+import { EditTask } from "./task/editTask";
 
 export {
     Bucket,
@@ -15,7 +16,8 @@ export {
 
     Task,
     TaskList,
-    AddEditTask,
-    ShowTask
+    AddTask,
+    ShowTask,
+    EditTask
 }
 

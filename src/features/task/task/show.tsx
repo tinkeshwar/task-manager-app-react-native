@@ -4,13 +4,14 @@ import { SafeAreaView, Text, TouchableOpacity, View } from 'react-native'
 import { ScrollView } from 'react-native-gesture-handler'
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5'
 import { useDispatch, useSelector } from 'react-redux'
+import { INavigation } from '../../../app/interface'
 import { patchTask } from '../api'
 import { getPriorityByValue, getPriorityItemByValue, parseHistory } from '../helper'
 import { loadTask, selectTask, setLoading } from '../store'
 import { styles } from '../styled'
 import { TaskResponseType } from '../type'
 
-export const ShowTask = () => {
+export const ShowTask = ({navigation}:INavigation) => {
 
     const dispatch = useDispatch()
     const task: TaskResponseType = useSelector(selectTask)
@@ -20,6 +21,17 @@ export const ShowTask = () => {
         await patchTask(id)
         dispatch(loadTask(id))
         dispatch(setLoading(false))
+    }
+
+    const editHandle = async (id: number) => {
+        dispatch(setLoading(true))
+        dispatch(loadTask(id))
+        navigation.navigate('EditTask')
+        dispatch(setLoading(false))
+    }
+
+    const deleteHandle = async (id: number) => {
+
     }
 
     return (
@@ -32,8 +44,23 @@ export const ShowTask = () => {
                         padding: 10,
                         paddingHorizontal: 30,
                         borderRadius: 5
-                    }}>
+                    }}
+                    onPress={()=>editHandle(task.id)}
+                >
                     <Text style={styles.addButton}>Edit</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={{
+                        marginTop: 10,
+                        marginBottom: 20,
+                        backgroundColor: 'red',
+                        padding: 10,
+                        paddingHorizontal: 30,
+                        borderRadius: 5,
+                        marginLeft: 5
+                    }}
+                    onPress={()=>deleteHandle(task.id)}
+                >
+                    <Text style={styles.addButton}>Delete</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={{
                         marginTop: 10,

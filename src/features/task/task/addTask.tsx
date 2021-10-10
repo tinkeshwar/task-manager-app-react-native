@@ -14,7 +14,7 @@ import {Picker} from '@react-native-picker/picker';
 import DateTimePickerModal from 'react-native-modal-datetime-picker';
 import dateFormat from 'dateformat';
 
-export const AddEditTask = ({navigation}:INavigation) => {
+export const AddTask = ({navigation}:INavigation) => {
 
     const dispatch = useDispatch()
     const loading: boolean = useSelector(selectLoading)

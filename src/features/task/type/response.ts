@@ -23,6 +23,7 @@ export type BucketResponseListType = {
 export type TaskResponseType = {
     id: number,
     user_id: number,
+    bucket_id: number,
     name: string,
     description: string,
     priority: number,
