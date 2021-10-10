@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { Text, View, TextInput, TouchableOpacity, ActivityIndicator, Alert } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux';
 import { INavigation } from '../../../app/interface';
+import { KeyBoardAvoidingWrap } from '../../../assets';
 import { notifyError } from '../../../helpers';
 import { register } from '../api';
 import { selectLoading, setLoading } from '../store';
@@ -41,7 +42,8 @@ export const Register = ({navigation}: INavigation) => {
   }
 
   return (
-      <View style={styles.container}>
+      <KeyBoardAvoidingWrap>
+        <View style={styles.container}>
           <Text style={styles.title}>Sign Up</Text>
           <View style={styles.InputContainer}>
             <TextInput
@@ -97,5 +99,6 @@ export const Register = ({navigation}: INavigation) => {
             <Text>Already have account? Sign In</Text>
           </TouchableOpacity>}
     </View>
+      </KeyBoardAvoidingWrap>
   )
 }
