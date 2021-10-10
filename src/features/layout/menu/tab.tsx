@@ -7,10 +7,12 @@ import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { AppStyles } from '../../auth/styled';
 import { INavigation } from '../../../app/interface';
 import UserContext from '../../../app/context';
+import { UserProfileResponseType } from '../../auth/type';
+
+const Tab = createBottomTabNavigator()
 
 export const TabMenu = ({navigation}:INavigation) => {
-    const Tab = createBottomTabNavigator()
-    const user = useContext(UserContext) as any
+    const user = useContext(UserContext) as UserProfileResponseType
     return (
         <Tab.Navigator>
             <Tab.Screen 

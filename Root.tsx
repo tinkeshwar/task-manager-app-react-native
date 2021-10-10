@@ -5,10 +5,11 @@ import AppLoading from 'expo-app-loading';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { UserProvider } from './src/app/context';
 import { loadUserProfile, selectAuthProfile } from './src/features/auth/store';
+import { UserProfileResponseType } from './src/features/auth/type';
 
 export default function Root() {
   const dispatch = useDispatch()
-  const user = useSelector(selectAuthProfile)
+  const user: UserProfileResponseType = useSelector(selectAuthProfile)
   const [appReady, setAppReady] = useState<boolean>(false)
 
   const checkAuth = async () => {
@@ -18,12 +19,12 @@ export default function Root() {
     }
   }
 
-  if(!appReady){
+  if(!appReady && !Object.keys(user).length){
     return (
       <AppLoading
         startAsync={checkAuth}
         onFinish={()=>setAppReady(true)}
-        onError={()=>{}}
+        onError={()=>console.warn}
       />
     )
   }

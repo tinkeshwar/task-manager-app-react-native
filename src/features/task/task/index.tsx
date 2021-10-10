@@ -5,11 +5,12 @@ import { AddTask, EditTask, ShowTask, TaskList } from '..';
 export const Task = () => {
     const Stack = createNativeStackNavigator()
     return (
-        <Stack.Navigator initialRouteName={'TaskList'}>
-            <Stack.Screen name={'TaskList'} component={TaskList} options={{headerShown: false}} />
-            <Stack.Screen name={'AddTask'} component={AddTask} options={{headerShown: false}} />
-            <Stack.Screen name={'EditTask'} component={EditTask} options={{headerShown: false}} />
-            <Stack.Screen name={'ShowTask'} component={ShowTask} options={{headerShown: false}} />
-        </Stack.Navigator>
+        <>?</>
+        // <Stack.Navigator initialRouteName={'TaskList'}>
+        //     <Stack.Screen name={'TaskList'} component={TaskList} options={{headerShown: false}} />
+        //     <Stack.Screen name={'AddTask'} component={AddTask} options={{headerShown: false}} />
+        //     <Stack.Screen name={'EditTask'} component={EditTask} options={{headerShown: false}} />
+        //     <Stack.Screen name={'ShowTask'} component={ShowTask} options={{headerShown: false}} />
+        // </Stack.Navigator>
     )
 }

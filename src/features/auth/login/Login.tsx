@@ -31,7 +31,7 @@ export const Login = ({navigation}: INavigation) => {
         dispatch(logUser(api))
         await AsyncStorage.setItem('token', api.token)
         await AsyncStorage.setItem('refresh', api.refresh)
-        navigation.navigate('Dashboard')
+        navigation.navigate('TabMenu')
     }
     dispatch(setLoading(false))
   }
