@@ -26,6 +26,12 @@ export type AuthResponseType = {
     scopes: string[]|[]
 }
 
+export type UserProfileResponseType = {
+    user: AuthUserResponseType,
+    buckets: number,
+    tasks: number
+}
+
 export type RegisterUserType = {
     id: number,
     firstname: string,

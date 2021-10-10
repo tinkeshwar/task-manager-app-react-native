@@ -38,7 +38,7 @@ export const ShowTask = () => {
                     <Text style={styles.showDeadline}>{task.status?task.status.toUpperCase():''}</Text>
                 </View>
                 <View style={styles.showHistoryView}>
-                    <Text style={{borderBottomColor:'black',borderBottomWidth:1}}>History</Text>
+                    <Text style={{borderBottomColor:'black',borderBottomWidth:1}}>Progress Event History</Text>
                     {task?.history?.length>0 && task.history.map((history, index)=>{
                         const historyData = parseHistory(history)
                         return (

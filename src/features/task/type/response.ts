@@ -11,7 +11,8 @@ export type BucketResponseType = {
     description: string,
     status: boolean,
     created_at: Date,
-    updated_at: Date
+    updated_at: Date,
+    tasks: TaskResponseType[]
 }
 
 export type BucketResponseListType = {

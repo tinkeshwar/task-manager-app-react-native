@@ -13,6 +13,7 @@ const Item = ({ item }:{item: BucketResponseType}) => (
     <View style={styles.itemContent}>
         <View style={styles.itemLeft}>
             <Text style={styles.itemText}><FontAwesome5Icon name={'bitbucket'} color={'green'} size={25}/> {item.name}</Text>
+            <Text style={{color:'#000', fontSize: 12, backgroundColor: '#f1f1f1', width: '30%', padding: 5, marginTop:10}}>Tasks: {item.tasks.length}</Text>
         </View>
         <TouchableOpacity style={styles.itemRight} onPress={()=>notifyError('Not Implemented','This feature is pending.')}>
             <FontAwesome5Icon name={'chevron-right'} color={'white'} size={20}/>

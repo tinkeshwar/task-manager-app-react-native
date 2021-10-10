@@ -1,7 +1,7 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { getProfile } from './api'
-import { AuthResponseType, AuthUserResponseType } from './type'
+import { AuthResponseType, AuthUserResponseType, UserProfileResponseType } from './type'
 
 export const AuthSlice = createSlice({
     name: 'auth',
@@ -15,7 +15,7 @@ export const AuthSlice = createSlice({
 
         /*start user*/
         user:{} as AuthUserResponseType,
-        profile: {} as AuthResponseType,
+        profile: {} as UserProfileResponseType,
         isLoggedIn: false as boolean,
         currentLog: '' as string,
         /*end user*/
@@ -38,7 +38,7 @@ export const AuthSlice = createSlice({
         /*end common*/
 
         /*start user*/
-        setProfile: (state, action:PayloadAction<AuthResponseType>) => {
+        setProfile: (state, action:PayloadAction<UserProfileResponseType>) => {
             state.profile = action.payload
         },
         setUser: (state, action:PayloadAction<AuthUserResponseType>) => {
@@ -71,7 +71,7 @@ export const logUser = (auth: AuthResponseType) => (dispatch: any) => {
 
 export const loadUserProfile = () => async (dispatch: any) => {
     dispatch(setLoading(true))
-    const profile: AuthResponseType = await getProfile()
+    const profile: UserProfileResponseType = await getProfile()
     dispatch(setProfile(profile))
     dispatch(setUser(profile.user))
     dispatch(setLoading(false))

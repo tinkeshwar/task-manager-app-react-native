@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { UserDashboard } from '../../dashboard';
 import { Bucket, Task } from '../../task';
@@ -6,9 +6,11 @@ import { Settings } from '../../user';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { AppStyles } from '../../auth/styled';
 import { INavigation } from '../../../app/interface';
+import UserContext from '../../../app/context';
 
 export const TabMenu = ({navigation}:INavigation) => {
     const Tab = createBottomTabNavigator()
+    const user = useContext(UserContext) as any
     return (
         <Tab.Navigator>
             <Tab.Screen 
@@ -39,6 +41,7 @@ export const TabMenu = ({navigation}:INavigation) => {
                     headerTintColor: AppStyles.color.white,
                     tabBarActiveTintColor: 'green',
                     tabBarInactiveTintColor: 'gray', 
+                    tabBarBadge: user.buckets,
                     tabBarIcon:()=><FontAwesome5 
                         name={'bitbucket'} size={30} color={'green'}
                     />
@@ -55,6 +58,7 @@ export const TabMenu = ({navigation}:INavigation) => {
                     headerTintColor: AppStyles.color.white,
                     tabBarActiveTintColor: 'blue',
                     tabBarInactiveTintColor: 'gray',
+                    tabBarBadge: user.tasks,
                     tabBarIcon:()=><FontAwesome5 
                         name={'tasks'} size={30} color={'blue'}
                     />
