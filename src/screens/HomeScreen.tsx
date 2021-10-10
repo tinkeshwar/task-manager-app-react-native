@@ -4,6 +4,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import UserContext from '../app/context';
 import { TabMenu } from '../features/layout';
 import { Login, Register } from '../features/auth';
+import Toast from 'react-native-toast-message';
 
 const Stack = createNativeStackNavigator();
 
@@ -24,6 +25,7 @@ export const HomeScreen = () => {
                             </>
                         )}
                     </Stack.Navigator>
+                    <Toast ref={(ref) => Toast.setRef(ref)} />
                 </NavigationContainer>
             )}
         </UserContext.Consumer>

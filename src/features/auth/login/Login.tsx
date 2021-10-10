@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Text, View, TextInput, TouchableOpacity, ActivityIndicator } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux';
 import { INavigation } from '../../../app/interface';
+import { KeyBoardAvoidingWrap } from '../../../assets';
 import { notifyError } from '../../../helpers';
 import { login } from '../api';
 import { loadUserProfile, logUser, selectLoading, setLoading } from '../store';
@@ -41,6 +42,7 @@ export const Login = ({navigation}: INavigation) => {
   }
 
   return (
+    <KeyBoardAvoidingWrap>
       <View style={styles.container}>
           <Text style={styles.title}>Sign In</Text>
           <View style={styles.InputContainer}>
@@ -80,5 +82,6 @@ export const Login = ({navigation}: INavigation) => {
             <Text>Don't have account? Sign Up Now</Text>
           </TouchableOpacity>}
     </View>
+    </KeyBoardAvoidingWrap>
   )
 }
