@@ -1,13 +1,14 @@
 import React, { useContext } from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { UserDashboard } from '../../dashboard';
-import { Bucket, Task } from '../../task';
 import { Settings } from '../../user';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
 import { AppStyles } from '../../auth/styled';
 import { INavigation } from '../../../app/interface';
 import UserContext from '../../../app/context';
 import { UserProfileResponseType } from '../../auth/type';
+import { Bucket } from '../../task/bucket';
+import { Task } from '../../task/task';
 
 const Tab = createBottomTabNavigator()
 
@@ -37,6 +38,7 @@ export const TabMenu = ({navigation}:INavigation) => {
                 component={Bucket} 
                 options={{
                     title: 'Buckets',
+                    tabBarLabelPosition: 'below-icon',
                     headerStyle: {
                         backgroundColor: AppStyles.color.tint,
                     },
@@ -54,6 +56,7 @@ export const TabMenu = ({navigation}:INavigation) => {
                 component={Task} 
                 options={{
                     title: 'Tasks', 
+                    tabBarLabelPosition: 'below-icon',
                     headerStyle: {
                         backgroundColor: AppStyles.color.tint,
                     },
@@ -70,7 +73,8 @@ export const TabMenu = ({navigation}:INavigation) => {
                 name="Settings" 
                 component={Settings} 
                 options={{
-                    title: 'Settings', 
+                    title: 'Settings',
+                    tabBarLabelPosition: 'below-icon', 
                     headerStyle: {
                         backgroundColor: AppStyles.color.tint,
                     },

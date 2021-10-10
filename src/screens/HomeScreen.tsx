@@ -10,7 +10,7 @@ const Stack = createNativeStackNavigator();
 export const HomeScreen = () => {
     return (
         <UserContext.Consumer>
-            {({user})=>(
+            {(user)=>(
                 <NavigationContainer>
                     <Stack.Navigator initialRouteName={'Login'}>
                         {!user || user === undefined || Object.keys(user).length === 0 ? (
@@ -18,8 +18,10 @@ export const HomeScreen = () => {
                                 <Stack.Screen name={'Login'} component={Login} options={{headerShown: false}} />
                                 <Stack.Screen name={'Register'} component={Register} options={{headerShown: false}} />
                             </>
-                        ):(
-                            <Stack.Screen name={'Dashboard'} component={TabMenu} options={{headerShown: false}} />
+                        ) : (
+                            <>
+                                <Stack.Screen name={'Dashboard'} component={TabMenu} options={{headerShown: false}} />
+                            </>
                         )}
                     </Stack.Navigator>
                 </NavigationContainer>

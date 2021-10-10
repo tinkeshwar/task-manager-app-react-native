@@ -1,21 +1,25 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import React from 'react'
-import { SafeAreaView, Text, TouchableOpacity, StyleSheet } from 'react-native'
-import { useSelector } from 'react-redux'
+import { SafeAreaView, Text, TouchableOpacity, StyleSheet, View } from 'react-native'
+import { useDispatch, useSelector } from 'react-redux'
 import { INavigation } from '../../../app/interface'
-import { selectAuthUser } from '../../auth/store'
+import { selectAuthProfile, setProfile } from '../../auth/store'
+import { UserProfileResponseType } from '../../auth/type'
 
 
 export const Settings = ({navigation}:INavigation) => {
 
-    const user = useSelector(selectAuthUser)
+    const dispatch = useDispatch()
+    const user: UserProfileResponseType = useSelector(selectAuthProfile)
+
     const handleLogout = async () => {
         await AsyncStorage.clear()
-        navigation.navigate('Login')
+        dispatch(setProfile({} as UserProfileResponseType))
     }
 
     return (
         <SafeAreaView style={styles.container}>
+            <View style={{padding:10}}><Text style={{fontSize:22}}>Hi, {user?.user?.firstname||''}</Text></View>
             <TouchableOpacity style={styles.logoutButtonArea} onPress={()=>handleLogout()}>
                 <Text style={styles.logoutButton}>Log Out</Text>
             </TouchableOpacity>
@@ -27,7 +31,6 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         alignItems: 'center',
-        justifyContent: 'center'
     },
     logoutButtonArea: {
         backgroundColor: 'red',

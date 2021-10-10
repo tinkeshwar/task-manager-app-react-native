@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { INavigation } from '../../../app/interface';
 import { notifyError } from '../../../helpers';
 import { login } from '../api';
-import { logUser, selectLoading, setLoading } from '../store';
+import { loadUserProfile, logUser, selectLoading, setLoading } from '../store';
 import { AppStyles, styles } from '../styled';
 import { AuthResponseType } from '../type';
 
@@ -31,7 +31,7 @@ export const Login = ({navigation}: INavigation) => {
         dispatch(logUser(api))
         await AsyncStorage.setItem('token', api.token)
         await AsyncStorage.setItem('refresh', api.refresh)
-        navigation.navigate('TabMenu')
+        dispatch(loadUserProfile())
     }
     dispatch(setLoading(false))
   }
