@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { getbucketList, getbucketListDropdown, getTaskList } from './api'
+import { getbucketList, getbucketListDropdown, getTaskList, showTask } from './api'
 import { BucketResponseListType, BucketResponseType, MetaResponseType, TaskResponseListType, TaskResponseType } from './type'
 
 export const TaskSlice = createSlice({
@@ -9,8 +9,10 @@ export const TaskSlice = createSlice({
         meta: {} as MetaResponseType,
         page: 1 as number,
         buckets: [] as BucketResponseType[],
+        bucket: {} as BucketResponseType,
         bucketList: [] as BucketResponseType[],
-        tasks: [] as TaskResponseType[]
+        tasks: [] as TaskResponseType[],
+        task: {} as TaskResponseType
     },
     reducers:{
         setLoading: (state, action:PayloadAction<boolean>) => {
@@ -31,6 +33,9 @@ export const TaskSlice = createSlice({
         setTasks: (state, action:PayloadAction<TaskResponseType[]>) => {
             state.tasks = action.payload
         },
+        setTask: (state, action:PayloadAction<TaskResponseType>) => {
+            state.task = action.payload
+        }
     }
 })
 
@@ -40,7 +45,8 @@ export const {
     setPage,
     setBuckets,
     setTasks,
-    setBucketList
+    setBucketList,
+    setTask
 } = TaskSlice.actions
 
 export const loadBuckets = (page: number, records: number) => async (dispatch: any) => {
@@ -66,11 +72,19 @@ export const loadTasks = (page: number, records: number) => async (dispatch: any
     dispatch(setLoading(false))
 }
 
+export const loadTask = (id: number) => async (dispatch: any) => {
+    dispatch(setLoading(true))
+    const response: TaskResponseType = await showTask(id)
+    dispatch(setTask(response))
+    dispatch(setLoading(false))
+}
+
 export const selectLoading = (state:any) => state.task.loading
 export const selectMeta = (state:any) => state.task.meta
 export const selectPage = (state:any) => state.task.page
 export const selectBucketList = (state:any) => state.task.buckets
 export const selectBucketListDropdown = (state:any) => state.task.bucketList
 export const selectTaskList = (state:any) => state.task.tasks
+export const selectTask = (state:any) => state.task.task
 
 export default TaskSlice.reducer

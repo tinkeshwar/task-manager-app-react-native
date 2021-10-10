@@ -4,6 +4,7 @@ import { ScrollView } from 'react-native-gesture-handler';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import { useDispatch, useSelector } from 'react-redux';
 import { INavigation } from '../../../app/interface';
+import { notifyError } from '../../../helpers';
 import { loadBuckets, selectBucketList, selectLoading, selectPage } from '../store';
 import { styles } from '../styled';
 import { BucketResponseType } from '../type';
@@ -13,7 +14,7 @@ const Item = ({ item }:{item: BucketResponseType}) => (
         <View style={styles.itemLeft}>
             <Text style={styles.itemText}><FontAwesome5Icon name={'bitbucket'} color={'green'} size={25}/> {item.name}</Text>
         </View>
-        <TouchableOpacity style={styles.itemRight}>
+        <TouchableOpacity style={styles.itemRight} onPress={()=>notifyError('Not Implemented','This feature is pending.')}>
             <FontAwesome5Icon name={'chevron-right'} color={'white'} size={20}/>
         </TouchableOpacity>
     </View>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { ActivityIndicator, SafeAreaView, Text, TextInput, TouchableOpacity, View, StyleSheet } from 'react-native'
+import { ActivityIndicator, SafeAreaView, Text, TextInput, TouchableOpacity, View, StyleSheet, Platform } from 'react-native'
 import { useDispatch, useSelector } from 'react-redux'
 import { INavigation } from '../../../app/interface'
 import { AppStyles } from '../../../app/style'
@@ -7,11 +7,12 @@ import { notifyError, notifySuccess } from '../../../helpers'
 import { createTask } from '../api'
 import { loadBucketList, loadTasks, selectBucketListDropdown, selectLoading, selectPage, setLoading } from '../store'
 import { styles } from '../styled'
-import DropDownPicker from 'react-native-dropdown-picker';
 import { prioritiesData } from '../data'
 import { BucketResponseType } from '../type'
-import { getBucketDropdown } from '../helper'
 import { KeyBoardAvoidingWrap } from '../../../assets'
+import {Picker} from '@react-native-picker/picker';
+import DateTimePickerModal from 'react-native-modal-datetime-picker';
+import dateFormat from 'dateformat';
 
 export const AddEditTask = ({navigation}:INavigation) => {
 
@@ -22,13 +23,11 @@ export const AddEditTask = ({navigation}:INavigation) => {
 
     const [name, setName] = useState<string|undefined>()
     const [description, setDescription] = useState<string|undefined>()
-    const [openPriority, setOpenPriority] = useState(false);
-    const [priority, setPriority] = useState(null);
-    const [priorities, setPriorities] = useState(prioritiesData);
-
-    const [openBucketList, setOpenBucketList] = useState(false);
-    const [bucket, setBucket] = useState(null);
-    const [buckets, setBuckets] = useState(getBucketDropdown(bucketItems));
+    const [priority, setPriority] = useState('');
+    const [bucket, setBucket] = useState('');
+    const [showdeadline, setSetShowDeadline] = useState<string>('')
+    const [deadline, setDeadline] = useState<string>('')
+    const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
 
     const handleSubmit = async () => {
       if(!name || !description || !priority){
@@ -40,8 +39,10 @@ export const AddEditTask = ({navigation}:INavigation) => {
           name,
           description,
           priority,
-
+          bucket_id: bucket,
+          deadline_at: deadline
       }
+      console.log(post)
       const response = await createTask(post)
       if(response.id){
           notifySuccess('Congratulations','Task added successfully.')
@@ -49,6 +50,21 @@ export const AddEditTask = ({navigation}:INavigation) => {
           navigation.navigate('TaskList', {})
       }
       dispatch(setLoading(false))
+    }
+
+    const showDatePicker = () => {
+      setDatePickerVisibility(true);
+    };
+  
+    const hideDatePicker = () => {
+      setDatePickerVisibility(false);
+    };
+  
+    const handleConfirm = (date: any) => {
+      const freshDate = dateFormat(date, "dddd, mmmm dS, yyyy, h:MM:ss TT")
+      setSetShowDeadline(freshDate)
+      setDeadline(date)
+      hideDatePicker();
     }
 
     useEffect(()=>{
@@ -62,14 +78,17 @@ export const AddEditTask = ({navigation}:INavigation) => {
         <SafeAreaView style={styles.container}>
           <Text style={styles.inputTitle}>Add Task</Text>
           <View style={styles.InputContainer}>
-            <DropDownPicker
-              open={openPriority}
-              value={priority}
-              items={priorities}
-              setOpen={setOpenPriority}
-              setValue={setPriority}
-              setItems={setPriorities}
-            />
+            <Picker
+              style={Platform.OS === 'ios'?{}:styles.InputBody}
+              selectedValue={priority}
+              onValueChange={(value)=>{
+                setPriority(value)
+              }}
+            >
+              {prioritiesData.map((priority, index)=>{
+                return <Picker.Item key={`priority-key-${index}`} color={priority.color} label={priority.label} value={priority.value} />
+              })}
+            </Picker>
           </View>
           <View style={styles.InputContainer}>
             <TextInput
@@ -93,14 +112,32 @@ export const AddEditTask = ({navigation}:INavigation) => {
             />
           </View>
           <View style={styles.InputContainer}>
-            <DropDownPicker
-              open={openBucketList}
-              value={bucket}
-              items={getBucketDropdown(bucketItems)}
-              setOpen={setOpenBucketList}
-              setValue={setBucket}
-              setItems={setBuckets}
-              searchable={true}
+            <Picker
+              style={Platform.OS === 'ios'?{}:styles.InputBody}
+              selectedValue={bucket}
+              onValueChange={(value)=>{
+                setBucket(value)
+              }}
+            >
+              {bucketItems.map((bucketData, index)=>{
+                return <Picker.Item key={`bucket-key-${index}`} color={'green'} label={bucketData.name} value={bucketData.id} />
+              })}
+            </Picker>
+          </View>
+          <View style={styles.InputContainer}>
+            <DateTimePickerModal
+              isVisible={isDatePickerVisible}
+              onConfirm={handleConfirm}
+              onCancel={hideDatePicker}
+              mode={'datetime'}
+            />
+            <TextInput
+              style={styles.InputBody}
+              placeholder='Deadline'
+              value={showdeadline||''}
+              placeholderTextColor={AppStyles.color.grey}
+              underlineColorAndroid='transparent'
+              onTouchEnd={showDatePicker}
             />
           </View>
           {loading && <ActivityIndicator

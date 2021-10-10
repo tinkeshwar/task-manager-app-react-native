@@ -16,7 +16,12 @@ export const createBucket = (data: any) => {
 }
 
 export const getTaskList = (page: number, records: number) => {
-    const url = `task/tasks?page=${page}&records=${records}`
+    const url = `task/tasks?page=${page}&records=${records}&sort=priority&order=DESC`
+    return RestApiService.get(url)
+}
+
+export const showTask = (id: number) => {
+    const url = `task/tasks/${id}`
     return RestApiService.get(url)
 }
 

@@ -2,6 +2,7 @@ import { StyleSheet } from "react-native";
 import { AppStyles } from "../../../app/style";
 
 export const styles = StyleSheet.create({
+    //add and list page
     container: {
         flex: 1,
         alignItems: 'center'
@@ -106,5 +107,61 @@ export const styles = StyleSheet.create({
         textAlign: 'center',
         padding: 5,
         fontSize: 20
+    },
+
+    //show page
+    showTitleContainer: {
+        flex: 1,
+        paddingHorizontal: 5,
+        backgroundColor: '#fff'
+    },
+    showTitleView: {
+        marginTop: 10,
+        paddingHorizontal: 10,
+        borderRadius: 5
+    },
+    showTitle: {
+        fontSize: 35,
+        color: '#000',
+        fontWeight: "700"
+    },
+    showDescriptionView: {
+        marginTop: 5,
+        paddingHorizontal: 10,
+        paddingVertical: 10,
+        borderTopColor: 'black',
+        borderTopWidth: 1,
+    },
+    showDescription: {
+        fontSize: 16,
+        color: '#717a83'
+    },
+    showSubItemView: {
+        paddingHorizontal: 10,
+        paddingVertical: 20,
+        borderTopColor: 'black',
+        borderTopWidth: 1,
+    },
+    showSubItem: {
+        fontSize: 22,
+    },
+    showDeadlineView: {
+        paddingHorizontal: 10,
+        paddingVertical: 20,
+        borderTopColor: 'black',
+        borderTopWidth: 1,
+    },
+    showDeadline: {
+        fontSize: 22,
+    },
+    showHistoryView: {
+        alignItems: 'center',
+        paddingHorizontal: 10,
+        paddingVertical: 20,
+        borderTopColor: 'black',
+        borderTopWidth: 1,
+    },
+    showHistory: {
+        fontSize: 22
     }
 });

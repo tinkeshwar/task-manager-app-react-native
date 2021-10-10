@@ -30,7 +30,8 @@ export type TaskResponseType = {
     history: string[],
     deadline_at: Date,
     created_at: Date,
-    updated_at: Date
+    updated_at: Date,
+    bucket: BucketResponseType
 }
 
 export type TaskResponseListType = {
