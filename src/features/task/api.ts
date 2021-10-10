@@ -39,3 +39,8 @@ export const patchTask = (id: number) => {
     const url = `task/tasks/${id}`
     return RestApiService.patch(url)
 }
+
+export const deleteTask = (id:number) => {
+    const url = `task/tasks/${id}`
+    return RestApiService.destroy(url)
+}

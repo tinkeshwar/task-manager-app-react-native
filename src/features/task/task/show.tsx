@@ -5,9 +5,10 @@ import { ScrollView } from 'react-native-gesture-handler'
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5'
 import { useDispatch, useSelector } from 'react-redux'
 import { INavigation } from '../../../app/interface'
-import { patchTask } from '../api'
+import { notifySuccess } from '../../../helpers'
+import { deleteTask, patchTask } from '../api'
 import { getPriorityByValue, getPriorityItemByValue, parseHistory } from '../helper'
-import { loadTask, selectTask, setLoading } from '../store'
+import { loadTask, loadTasks, selectPage, selectTask, setLoading } from '../store'
 import { styles } from '../styled'
 import { TaskResponseType } from '../type'
 
@@ -15,6 +16,7 @@ export const ShowTask = ({navigation}:INavigation) => {
 
     const dispatch = useDispatch()
     const task: TaskResponseType = useSelector(selectTask)
+    const page: number = useSelector(selectPage)
 
     const markHandle = async (id: number) => {
         dispatch(setLoading(true))
@@ -31,7 +33,12 @@ export const ShowTask = ({navigation}:INavigation) => {
     }
 
     const deleteHandle = async (id: number) => {
-
+        dispatch(setLoading(true))
+        await deleteTask(id)
+        notifySuccess('Congratulations','Task deleted successfully.')
+        dispatch(loadTasks(page, 20))
+        navigation.navigate('TaskList')
+        dispatch(setLoading(false))
     }
 
     return (
